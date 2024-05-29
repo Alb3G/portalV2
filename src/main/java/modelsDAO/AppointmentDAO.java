@@ -51,9 +51,15 @@ public class AppointmentDAO {
         return appointments;
     }
 
+    /**
+     * Método por el cual filtramos todas las tutorias que tiene un profesor en este caso según la hora.
+     * @author Alberto
+     * @param appointments List<Appointment>
+     * @param hour : String
+     * @return List<Appointment>
+     */
     public static List<Appointment> getAppointmentsByHour(List<Appointment> appointments, String hour) {
         List<Appointment> res = new ArrayList<>();
-
         for(Appointment a : appointments) {
             if(a.getTime().equals(hour)) {
                 res.add(a);
@@ -63,6 +69,12 @@ public class AppointmentDAO {
         return res;
     }
 
+    /**
+     * Reurtilizacion del método anterior para filtrar por diferentes horas y que el código quede más limpio.
+     * @author Alberto
+     * @param appointments List<Appointment>
+     * @return List<Appointment>
+     */
     public static List<Appointment> getAppointments1700(List<Appointment> appointments) {
         return getAppointmentsByHour(appointments, "17:00");
     }
@@ -74,29 +86,6 @@ public class AppointmentDAO {
     public static List<Appointment> getAppointments1900(List<Appointment> appointments) {
         return getAppointmentsByHour(appointments, "19:00");
     }
-
-//    public static List<Appointment> getMondayAppointments(List<Appointment> appointments) {
-//        return getAppointmentsByDay(appointments, 'L');
-//    }
-//
-//    public static List<Appointment> getTuesdayAppointments(List<Appointment> appointments) {
-//        return getAppointmentsByDay(appointments, 'M');
-//    }
-//
-//
-//    public static List<Appointment> getWednesdayAppointments(List<Appointment> appointments) {
-//        return getAppointmentsByDay(appointments, 'X');
-//    }
-//
-//
-//    public static List<Appointment> getThursdayAppointments(List<Appointment> appointments) {
-//        return getAppointmentsByDay(appointments, 'J');
-//    }
-//
-//
-//    public static List<Appointment> getFridayAppointments(List<Appointment> appointments) {
-//        return getAppointmentsByDay(appointments, 'V');
-//    }
 
     /**
      * Método que se utiliza para reservar una tutoría con un profesor.
@@ -125,11 +114,11 @@ public class AppointmentDAO {
                 stmt.setString(2, appointment_id);
                 int results = stmt.executeUpdate();
                 if (results != 0) {
-                    ses.setAttribute("okMsg", "Se ha hecho la reserva con éxito");
-                    ses.setAttribute("errorMsg", null);
+                    ses.setAttribute("appointmentOk", "Se ha hecho la reserva con éxito");
+                    ses.setAttribute("appointmentError", null);
                 } else {
-                    ses.setAttribute("errorMsg","No se ha podido realizar la reserva");
-                    ses.setAttribute("okMsg",null);
+                    ses.setAttribute("appointmentError","No se ha podido realizar la reserva");
+                    ses.setAttribute("appointmentOk",null);
                 }
 
             } catch (SQLException | ClassNotFoundException e) {
@@ -145,8 +134,8 @@ public class AppointmentDAO {
             }
 
         } else {
-            ses.setAttribute("errorMsg","Ya tienes una reserva hecha");
-            ses.setAttribute("okMsg",null);
+            ses.setAttribute("appointmentError","Ya tienes una reserva hecha");
+            ses.setAttribute("appointmentOk",null);
         }
     }
 

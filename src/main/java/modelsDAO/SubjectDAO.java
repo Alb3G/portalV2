@@ -1,6 +1,7 @@
 package modelsDAO;
 
 import connections.Conector;
+import models.Internship;
 import models.Subject;
 import models.User;
 
@@ -16,7 +17,6 @@ public class SubjectDAO {
   /**
    * Método para almacenar en una lista todas las asignaturas relacionadas con el
    * curso en cuestión.
-   * 
    * @Author Alberto G.
    * @param courseId id del curso del usuario activo
    * @return List<Subject>
@@ -24,7 +24,6 @@ public class SubjectDAO {
   public static List<Subject> getAllSubjectsByCourseId(Integer courseId) {
     List<Subject> subjects = new ArrayList<>();
     Connection con = null;
-
     try {
       con = new Conector().getMySqlConnection();
       PreparedStatement ps = con.prepareStatement(
@@ -53,7 +52,6 @@ public class SubjectDAO {
 
   /**
    * Método para seleccionar una Asignatura en específico mediante su id
-   * 
    * @Author Alberto G.
    * @param id
    * @return Objeto de tipo Subject
@@ -119,7 +117,7 @@ public class SubjectDAO {
     return subjects;
   }
 
-  /*
+  /**
    * Método utilizado para rescatar las asignatura de un alumno en
    * calificaciones.jsp. Devuelve solamente los datos necesarios.
    * 
@@ -171,6 +169,46 @@ public class SubjectDAO {
     }
 
     return subjects;
+  }
 
+  /**
+   * Obtenemos de la base de datos todos los alumnos que un tutor tiene de prácticas y a los que puede
+   * modificarles la nota.
+   * @author Alberto y Miguel.
+   * @param id
+   * @return studentsInternshipInfo
+   */
+  public static List<Internship> getStudentsInInternshipByMentorId(int id) {
+    Connection conn = null;
+    List<Internship> studentsInternshipInfo = new ArrayList<>();
+
+    try {
+      conn = new Conector().getMySqlConnection();
+      try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM internship WHERE tutor = ?;")) {
+        ps.setInt(1, id);
+        try (ResultSet rs = ps.executeQuery()) {
+          while (rs.next()) {
+            int mentorId = rs.getInt("tutor");
+            int studentId = rs.getInt("student");
+            float grade = rs.getFloat("grade");
+            User mentor = UserDAO.getUserInfoById(mentorId);
+            User student = UserDAO.getUserInfoById(studentId);
+            studentsInternshipInfo.add(new Internship(mentor, student, grade));
+          }
+        }
+      }
+    } catch (SQLException | ClassNotFoundException e) {
+      e.printStackTrace();
+    } finally {
+      if (conn != null) {
+        try {
+          conn.close();
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+
+    return studentsInternshipInfo;
   }
 }

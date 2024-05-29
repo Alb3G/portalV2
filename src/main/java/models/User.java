@@ -7,17 +7,6 @@ public class User {
     private Integer school_id;
     private Integer course_id;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", userType='" + userType + '\'' +
-                ", id_school=" + school_id +
-                ", id_course=" + course_id +
-                '}';
-    }
-
 	public int getId() {
 		return id;
 	}
@@ -57,6 +46,15 @@ public class User {
 	public void setCourse_id(Integer course_id) {
 		this.course_id = course_id;
 	}
-    
-    
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", userType='" + userType + '\'' +
+				", id_school=" + school_id +
+				", id_course=" + course_id +
+				'}';
+	}
 }

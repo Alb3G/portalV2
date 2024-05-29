@@ -44,7 +44,7 @@ public class UserDAO {
 
     /**
      * Inserta un registro nuevo en la tabla de Credentials.
-     * @author Ricardo
+     * @author Alberto
      * @param con   Conexión con la BD.
      * @param userEmail	email que se recoge en el registro.
      * @param userPass	contraseña que se recoge en el registro.
@@ -65,7 +65,7 @@ public class UserDAO {
 
     /**
      * Inserta un usuario nuevo en la BD.
-     * @author Ricardo
+     * @author Alberto
      * @param con   Conexión con la BD.
      * @param name	nombre recogido en el registro.
      * @param lastName	apellidos recogidos en el registro.
@@ -229,11 +229,6 @@ public class UserDAO {
 
         return teachers;
     }
-
-    
-    
-    
-    
     
     /**
      * Método que se utiliza para cambiar la contraseña de un usuario existente
@@ -468,4 +463,63 @@ public class UserDAO {
 		}
 		return changed;
 	}
+
+    /**
+     * Con este método en el index determinamos el path que se va a utilizar en el iframe de
+     * calificaciones.
+     * @author Alberto y Miguel
+     * @param u:User
+     * @return
+     */
+    public static String calificacionesByUserType(User u) {
+        String path = "";
+        if(u.getUserType().equals("01")) {
+            path = "./jsp/calificacionesAlumno.jsp";
+        } else if (u.getUserType().equals("02")) {
+            path = "./jsp/calificaciones.jsp";
+        } else {
+            path = "./jsp/calificacionesAcc.jsp";
+        }
+
+        return path;
+    }
+
+    /**
+     * Método con el que sacamos toda la información necesaria para instanciar un objeto User
+     * mediante su ID
+     * @author Alberto
+     * @param id
+     * @return User
+     */
+    public static User getUserInfoById(int id) {
+        User u = new User();
+        Connection conn = null;
+        try {
+            conn = new Conector().getMySqlConnection();
+            try (PreparedStatement ps = conn.prepareStatement("Select * from user_obj where id = ?;")) {
+                ps.setInt(1, id);
+                try (ResultSet rs = ps.executeQuery()) {
+                    while(rs.next()) {
+                        u.setId(rs.getInt(1));
+                        u.setName(rs.getString(2));
+                        u.setUserType(rs.getString(6));
+                        u.setSchool_id(rs.getInt(7));
+                        u.setCourse_id(rs.getInt(8));
+                    }
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if(conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return u;
+    }
 }

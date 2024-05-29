@@ -12,9 +12,7 @@ public class School {
 	private String locSchool;
 	private String mapLink;
 
-	public School() {
-
-	}
+	public School() {}
 
 	public School(int idSchool, String nombreSchool, String tlfSchool, String email, String scheduleSchool,
 			String locSchool, String mapLink) {
@@ -27,10 +25,8 @@ public class School {
 		this.mapLink = mapLink;
 	}
 
-	
 	//GETTERS Y SETTERS 
-	
-	
+
 	public int getIdSchool() {
 		return idSchool;
 	}

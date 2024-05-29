@@ -14,6 +14,12 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Servlet básico de registro en el que nos llegan los datos del formulario
+ * ya validados del front y simplemente hacemos una validación de que los datos
+ * a insertar no existan y después los insertamos en nuestra Db.
+ * @author Alberto
+ */
 @WebServlet(name = "RegisterServlet", urlPatterns = "/register")
 public class RegisterServlet extends HttpServlet {
     @Override
@@ -31,6 +37,7 @@ public class RegisterServlet extends HttpServlet {
         String userPass = req.getParameter("user_password");
         String hashedPass = BCrypt.hashpw(userPass, BCrypt.gensalt());
         String userExists = "El usuario ya esta registrado";
+        String userCreated = "";
 
         try {
             con = new Conector().getMySqlConnection();
@@ -42,13 +49,16 @@ public class RegisterServlet extends HttpServlet {
                         userExists += "<br/>Email ya existe";
                     if (dnieExists)
                         userExists += "<br/>DNIE ya existe";
-                    ses.setAttribute("userExists", userExists);
+                    ses.setAttribute("userExists",userExists);
+                    ses.setAttribute("errorMsgLogin",null);
+                    ses.setAttribute("userRegistered",null);
                 } else {
                     UserDAO.insertCredentials(con, userEmail, hashedPass);
                     UserDAO.insertUserInDB(con, userName, userLastName, userBirthday, userDnie, userEmail, hashedPass, userSchool, userCourse);
-                    userExists = "¡Usuario registrado con éxito!";
-                    ses.setAttribute("userExists", userExists);
+                    userCreated = "¡Usuario registrado con éxito!";
+                    ses.setAttribute("userExists", null);
                     ses.setAttribute("errorMsgLogin", null);
+                    ses.setAttribute("userRegistered",userCreated);
                 }
                 res.sendRedirect("./jsp/login.jsp");
             }

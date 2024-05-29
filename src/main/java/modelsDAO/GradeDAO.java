@@ -208,4 +208,61 @@ public class GradeDAO {
             }
         }
     }
+
+    /**
+     * Método con el que segun la nota y el id del alumno que nos llega del servlet actualizamos
+     * la nota de las prácticas de dicho alumno.
+     * @author Alberto y Miguel
+     * @param studentId
+     * @param studentGrade
+     */
+    public static void updateInternshipGrade(int studentId, float studentGrade) {
+        Connection conn = null;
+        try {
+            conn = new Conector().getMySqlConnection();
+            try (PreparedStatement ps = conn.prepareStatement("UPDATE internship SET grade = ? WHERE student = ?;")) {
+                ps.setFloat(1, studentGrade);
+                ps.setInt(2, studentId);
+                ps.executeUpdate();
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * Con este método sacamos la nota específica de un alumno en concreto en relación a sus prácticas
+     * @author Alberto y Miguel
+     * @param studentId
+     */
+    public static List<Grade>  getInternshipGradeOfStudent(int studentId) {
+        List<Grade> grades = new ArrayList<>();
+        Connection con = null;
+        try {
+            con = new Conector().getMySqlConnection();
+            try (PreparedStatement ps = con.prepareStatement("Select grade from internship where student = ?;")) {
+                ps.setInt(1, studentId);
+                try (ResultSet rs = ps.executeQuery()) {
+                    while(rs.next()) {
+                        Grade newG = new Grade();
+                        newG.setGrade_desc("Nota de las practicas en Accenture");
+                        newG.setGrade(rs.getBigDecimal("grade"));
+                        grades.add(newG);
+                    }
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return grades;
+    }
 }
