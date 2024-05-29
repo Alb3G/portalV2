@@ -16,6 +16,15 @@ public class CalificacionesAccServlet extends HttpServlet {
         // doGet implementation (if needed)
     }
 
+    /**
+     * En el doPost del servlet manejamos tanto el id del student como su nota en las prácticas
+     * para modificar su nota posteriormente en BD
+     * @author Alberto y Miguel.
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Obtener el ID del estudiante del formulario

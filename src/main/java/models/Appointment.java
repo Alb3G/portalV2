@@ -35,10 +35,6 @@ public class Appointment {
         this.studentID = studentID;
     }
 
-//    public String getDate() {
-//        return date;
-//    }
-
     public void setDate(String date) {
         this.date = date;
     }

@@ -44,7 +44,7 @@ public class UserDAO {
 
     /**
      * Inserta un registro nuevo en la tabla de Credentials.
-     * @author Ricardo
+     * @author Alberto
      * @param con   Conexión con la BD.
      * @param userEmail	email que se recoge en el registro.
      * @param userPass	contraseña que se recoge en el registro.
@@ -65,7 +65,7 @@ public class UserDAO {
 
     /**
      * Inserta un usuario nuevo en la BD.
-     * @author Ricardo
+     * @author Alberto
      * @param con   Conexión con la BD.
      * @param name	nombre recogido en el registro.
      * @param lastName	apellidos recogidos en el registro.
@@ -229,11 +229,6 @@ public class UserDAO {
 
         return teachers;
     }
-
-    
-    
-    
-    
     
     /**
      * Método que se utiliza para cambiar la contraseña de un usuario existente
@@ -469,6 +464,13 @@ public class UserDAO {
 		return changed;
 	}
 
+    /**
+     * Con este método en el index determinamos el path que se va a utilizar en el iframe de
+     * calificaciones.
+     * @author Alberto y Miguel
+     * @param u:User
+     * @return
+     */
     public static String calificacionesByUserType(User u) {
         String path = "";
         if(u.getUserType().equals("01")) {
@@ -482,6 +484,13 @@ public class UserDAO {
         return path;
     }
 
+    /**
+     * Método con el que sacamos toda la información necesaria para instanciar un objeto User
+     * mediante su ID
+     * @author Alberto
+     * @param id
+     * @return User
+     */
     public static User getUserInfoById(int id) {
         User u = new User();
         Connection conn = null;

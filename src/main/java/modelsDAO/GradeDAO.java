@@ -209,6 +209,13 @@ public class GradeDAO {
         }
     }
 
+    /**
+     * Método con el que segun la nota y el id del alumno que nos llega del servlet actualizamos
+     * la nota de las prácticas de dicho alumno.
+     * @author Alberto y Miguel
+     * @param studentId
+     * @param studentGrade
+     */
     public static void updateInternshipGrade(int studentId, float studentGrade) {
         Connection conn = null;
         try {
@@ -231,6 +238,11 @@ public class GradeDAO {
         }
     }
 
+    /**
+     * Con este método sacamos la nota específica de un alumno en concreto en relación a sus prácticas
+     * @author Alberto y Miguel
+     * @param studentId
+     */
     public static List<Grade>  getInternshipGradeOfStudent(int studentId) {
         List<Grade> grades = new ArrayList<>();
         Connection con = null;

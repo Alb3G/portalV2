@@ -10,9 +10,7 @@ public class Grade {
     private BigDecimal grade;
     private String grade_desc;
 
-    public Grade() {
-
-    }
+    public Grade() {}
 
     public int getSubject_id() {
         return subject_id;

@@ -14,6 +14,12 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Servlet básico de registro en el que nos llegan los datos del formulario
+ * ya validados del front y simplemente hacemos una validación de que los datos
+ * a insertar no existan y después los insertamos en nuestra Db.
+ * @author Alberto
+ */
 @WebServlet(name = "RegisterServlet", urlPatterns = "/register")
 public class RegisterServlet extends HttpServlet {
     @Override

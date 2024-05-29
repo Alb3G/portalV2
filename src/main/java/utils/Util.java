@@ -70,7 +70,7 @@ public class Util {
 
 	/**
 	 * Método utilizado para ver si un correo existe en la BD.
-	 * @author Ricardo
+	 * @author Alberto
 	 * @param con
 	 * @param email email que se quiere comprobar.
 	 * @return devuelve un boolean en función de si existe o no el email.
@@ -96,7 +96,7 @@ public class Util {
 
 	/**
 	 * Método para comprobar si un DNI o NIE existe en la BD.
-	 * @author Ricardo
+	 * @author Alberto
 	 * @param con
 	 * @param dnie
 	 * @return	Devuelve un booleano en función de si existe el DNIE o no.
@@ -177,26 +177,6 @@ public class Util {
 
     	return imagen;
     }
-
-//	/**
-//	 * Método utilizado para definir la ruta al JSP de las noticias de cada centro
-//	 * @author Ricardo
-//	 * @param id
-//	 * @return	String con la ruta
-//	 */
-//	public static String defineID(int id){
-//    	String nombre="";
-//
-//    	switch(id){
-//			case 1->{nombre="./jsp/noticiasCesur.jsp";}
-//			case 2->{nombre="./jsp/noticiasPabloPicasso.jsp";}
-//			case 3->{nombre="./jsp/noticiasBelen.jsp";}
-//			case 4->{nombre="./jsp/noticiasAlanTuring.jsp";}
-//			case 5->{nombre="./jsp/noticiasSanJose.jsp";}
-//    	}
-//
-//    	return nombre;
-//    }
 
 	/**
 	 * Método utilizado para comprobar si la contraseña introducida en el cambio de contraseña es correcta

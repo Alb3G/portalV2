@@ -13,6 +13,13 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import java.io.IOException;
 
+/**
+ * En el doGet el método recibe mediante un enlace del jsp ../servlet?subjectId
+ * con el id de la asignatura ya se puede sacar toda la información y gracias a
+ * pdf Box podemos crear pdf en tiempo de ejecución sin tener que almacenarlos en
+ * local y con el contenido que deseemos
+ * @author Alberto
+ */
 @WebServlet(name = "DownloadPDFServlet", urlPatterns = "/descarga")
 public class DownloadPDFServlet extends HttpServlet {
     @Override
